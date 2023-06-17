@@ -9,13 +9,15 @@ using UnityEngine.SceneManagement;
 public class TitleScreen : MonoBehaviour
 {
     public TMP_InputField nameField;
-    private string InternalUsername;
-    private TextMeshProUGUI errorMessage; 
 
+    private TextMeshProUGUI errorMessage;
+
+    //ENCAPSULATION
+    private string InternalUsername;
     public string username
     {
         get { return InternalUsername; }
-        set { InternalUsername = username; }
+        set { InternalUsername = value; }
     }
 
 
@@ -37,6 +39,7 @@ public class TitleScreen : MonoBehaviour
         {
             errorMessage.enabled = false;
             username = str;
+            NewPlayerName(username);
             StartCoroutine(SceneLoader());
 
         }
@@ -50,9 +53,15 @@ public class TitleScreen : MonoBehaviour
     }
     IEnumerator SceneLoader()
     {
-            yield return new WaitForSeconds(1);
-            //SceneManager.LoadScene(1);
             Debug.Log("Loading scene 1");
+            yield return new WaitForSeconds(1);
+            SceneManager.LoadScene(1);
+            
+    }
+
+    public void NewPlayerName(string name)
+    {
+        SaveName.Instance.playerName = name;
     }
 
 }
